@@ -34,6 +34,10 @@ controller.hears(['hello', 'hi', 'yo', 'whatsup'], ['direct_mention'], function 
   bot.reply(message, 'Hello.')
 })
 
+controller.hears(['I would like to create an account'], ['direct_mention'], function (bot, message) {
+  bot.reply(message, 'Sure, let\'s do it! What\'s your name?')
+})
+
 controller.hears(['hello', 'hi'], ['direct_message'], function (bot, message) {
   bot.reply(message, 'Hello.')
   bot.reply(message, 'It\'s nice to talk to you directly.')

@@ -1,14 +1,10 @@
 var Botkit = require('botkit');
 var Witbot = require('witbot');
 var witbot = Witbot('KJN5XTUXGTW27DC7VJ4Y64QX6N7BZXA5');
-
 var token = process.env.SLACK_TOKEN;
-
-var slackToken = process.env.SLACK_TOKEN
-var witbot = Witbot(process.env.WIT_TOKEN)
 var controller = Botkit.slackbot({ debug: false })
 
-controller.spawn({ token: token }).startRTM(function (err, bot, payload) {
+controller.spawn({ token: slackToken }).startRTM(function (err, bot, payload) {
   if (err) throw new Error('Error connecting to Slack: ', err)
   console.log('Connected to Slack')
 })

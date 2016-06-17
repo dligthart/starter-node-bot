@@ -76,6 +76,11 @@ function createAccount(account, convo) {
 		  console.log(createdAccount);
 			convo.say('Ok then - you are now registered!');
 			convo.next();
+			convo.say('One more thing; you can use this password to log in:' + account().password);
+			convo.next();
+			convo.say('Master, I bid you farewell. Thank you for activating my circuits. ');
+			convo.next();
+			convo.say('And please check your email - I have sent you a message..bye bye');
 		}
 	});
 }

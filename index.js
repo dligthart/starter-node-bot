@@ -35,29 +35,18 @@ controller.hears(['hi'], ['direct_message', 'direct_mention'], function (bot, me
 
 function startRegistrationConversation(bot, message) {
 	var account = {
+		givenName: '',
+		username: '',
 		email: '',
 		password: ''
 	};
 	bot.startConversation(message, function(err, convo) {
     convo.say('Hello! Human!');
-		convo.ask('Would you like to register? Let\'s start with your email address, please enter.', function(response,convo) {
-			account.email = extractEmail(response.text);
-			/*if(!account.email) {
-				convo.ask('Please enter again', function(){
-
-				});
-			}*/
-			convo.say('Thanks you entered:' + account.email);
-      convo.next();
-			convo.ask('Did you enter the correct email address?', function(response, convo) {
-				if('yes' == response.text) {
-					account.password = makePassword(13, 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890');
-					createAccount(account, convo);
-				} else {
-					convo.say('Ok let\'s go through it again..	');
-					convo.next();
-				}
-			});
+		convo.ask('Would you like to register? ', function(response,convo) {
+			if('yes' == response) {
+				inputName(response, convo, account);
+				inputEmail(response, convo, account);
+			}
 		});
   });
 }
@@ -82,6 +71,34 @@ function createAccount(account, convo) {
 		}
 	});
 }
+
+function inputName(response, convo, account) {
+	convo.ask('Pleased to get acquainted, meatbag - now what is your designation?', function(response, convo) {
+		account.givenName = response.text;
+		convo.say('I am here to serve you, Master ' + account.givenName +' !');
+		convo.next();
+	});
+}
+
+function inputEmail(response, convo, account) {
+	convo.ask('Now please enter your email address so I can send you lots of spam - wink wink ;)', function(response, convo) {
+		account.email = extractEmail(response.text);
+		convo.say('Thanks you entered:' + account.email);
+		convo.next();
+		convo.ask(account.givenName + ', did you enter the correct email address?', function(response, convo) {
+			if('yes' == response.text) {
+				account.username = account.email;
+				account.password = makePassword(13, 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890');
+				createAccount(account, convo);
+			} else {
+				convo.say('Ok let\'s go through it again..	');
+				convo.next();
+				inputEmail(response, convo, account);
+			}
+		});
+	});
+}
+
 
 function makePassword(n, a) {
   var index = (Math.random() * (a.length - 1)).toFixed(0);

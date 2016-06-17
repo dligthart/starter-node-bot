@@ -85,13 +85,11 @@ function inputName(response, convo, account) {
 	convo.ask('Pleased to get acquainted, meatbag - now what is your designation?', function(response, convo) {
 		account().givenName = response.text;
 		convo.say('I am here to serve you, Master ' + account().givenName +' !');
-		convo.next();
 	});
-	
+
 	convo.ask('Master '+ account().givenName + ', if you don\'t mind me asking; what is your last name? ', function(response, convo) {
 		account().surname = response.text;
 		convo.say(account().givenName +  ' ' + account().surname + ', Master, what a beautiful name, splendid! I have stored your full name in my memory banks..');
-		convo.next();
 	});
 }
 

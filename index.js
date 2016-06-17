@@ -20,7 +20,7 @@ var application = null;
 client.getApplication('https://api.stormpath.com/v1/applications/' + appId, function(err, resource) {
 	if(err) console.log('Could not retrieve stormpath application', appId);
 	application = resource;
-	console.log('Got application', application);
+	//console.log('Got application', application);
 });
 
 

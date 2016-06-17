@@ -12,6 +12,7 @@ controller.spawn({ token: token }).startRTM(function (err, bot, payload) {
 controller.hears('.*', 'direct_message,direct_mention', function (bot, message) {
   var wit = witbot.process(message.text, bot, message)
   wit.hears('hello', 0.53, function (bot, message, outcome) {
+		console.log(message, outcome);
     bot.startConversation(message, function (_, convo) {
       convo.say('Hello!');
       convo.ask('How are you?', function (response, convo) {

@@ -17,9 +17,10 @@ var apiKey = {
 	secret: process.env.STORMPATH_SECRET
 };
 var appId = process.env.STORMPATH_APPID;
- 
+
 if(!apiKey.id || !apiKey.secret) {
 	console.warn('Stormpath API key and secret are required');
+	process.exit();
 }
 
 var client = new stormpath.Client({ apiKey: apiKey });

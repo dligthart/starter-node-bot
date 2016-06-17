@@ -18,7 +18,3 @@ config:
     info: This is an unnecessary option
     default: 2dOFY5UnOtoCGznZKlA5ax
     global: true
-slackscopes:
-  - bot
-  - commands
-  - incoming-webhook

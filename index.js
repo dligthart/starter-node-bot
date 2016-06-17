@@ -1,9 +1,12 @@
 var Botkit = require('botkit');
-var Witbot = require('witbot');
-var witbot = Witbot('KJN5XTUXGTW27DC7VJ4Y64QX6N7BZXA5');
+
+var WIT_TOKEN = (process.env.WIT_TOKEN)?process.env.WIT_TOKEN:'KJN5XTUXGTW27DC7VJ4Y64QX6N7BZXA5';
+var Wit = require('node-wit');
+
 var slackToken = 'xoxp-23885891238-23890920277-50539946705-f3026a4d17';
-var token = process.env.SLACK_TOKEN; //slackToken; //
-var controller = Botkit.slackbot({ debug: false });
+if(process.env.SLACK_TOKEN) slackToken = process.env.SLACK_TOKEN;
+var token =  slackToken;
+var controller = Botkit.slackbot({ debug: true });
 
 controller.spawn({ token: token }).startRTM(function (err, bot, payload) {
   if (err) throw new Error('Error connecting to Slack: ', err);
@@ -11,36 +14,10 @@ controller.spawn({ token: token }).startRTM(function (err, bot, payload) {
 });
 
 controller.hears(['hi'], ['direct_message', 'direct_mention'], function (bot, evt) {
-  bot.reply(evt, 'hello from bot')
-});
+	//bot.reply(evt, 'hello from bot');
 
-controller.hears(['.*'], ['direct_message', 'direct_mention'], function (bot, message) {
-  var wit = witbot.process(message.text, bot, message)
-	console.log(message.text);
-  wit.hears('greeting', 0.3, function (bot, message, outcome) {
-		console.log(message, outcome);
-    bot.startConversation(message, function (_, convo) {
-      convo.say('Hello!');
-      convo.ask('How are you?', function (response, convo) {
-        witbot.process(response.text)
-          .hears('good', 0.5, function (outcome) {
-            convo.say('I am so glad to hear it!');
-            convo.next();
-          })
-          .hears('bad', 0.5, function (outcome) {
-            convo.say('I\'m sorry, that is terrible');
-            convo.next();
-          })
-          .otherwise(function (outcome) {
-            convo.say('I\'m cofused');
-            convo.repeat();
-            convo.next();
-          });
-      });
-    });
-  });
-
-  wit.otherwise(function (bot, message) {
-    bot.reply(message, 'You are so intelligent, and I am so simple. I don\'t understand');
+  bot.startConversation(message,function(err,convo) {
+    convo.say('Hello!');
+    convo.say('Have a nice day!');
   });
 });

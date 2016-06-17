@@ -25,6 +25,7 @@
     "beepboop-botkit": "^1.4.0",
     "botkit": "~0.1.1",
     "botkit-middleware-witai": "0.0.2",
+    "natural": "^0.4.0",
     "witbot": "^2.1.0"
   }
 }

@@ -41,8 +41,13 @@ function startRegistrationConversation(bot, message) {
 	bot.startConversation(message, function(err, convo) {
     convo.say('Hello! Human!');
 		convo.ask('Would you like to register? Let\'s start with your email address, please enter.', function(response,convo) {
-      convo.say('Thanks you entered:' + response.text);
-			account.email = response.text;
+			account.email = extractEmail(response.text);
+			/*if(!account.email) {
+				convo.ask('Please enter again', function(){
+
+				});
+			}*/
+			convo.say('Thanks you entered:' + account.email);
       convo.next();
 			convo.ask('Did you enter the correct email address?', function(response, convo) {
 				if('yes' == response.text) {
@@ -81,4 +86,12 @@ function createAccount(account, convo) {
 function makePassword(n, a) {
   var index = (Math.random() * (a.length - 1)).toFixed(0);
   return n > 0 ? a[index] + makePassword(n - 1, a) : '';
-};
+}
+
+function extractEmail(text){
+  var r = text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+	if(r) {
+		return r[0];
+	}
+	return null;
+}

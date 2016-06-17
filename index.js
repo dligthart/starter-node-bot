@@ -1,11 +1,28 @@
 var Botkit = require('botkit');
-
+var stormpath = require('stormpath');
 var WIT_TOKEN = (process.env.WIT_TOKEN)?process.env.WIT_TOKEN:'KJN5XTUXGTW27DC7VJ4Y64QX6N7BZXA5';
 
 var slackToken = 'xoxp-23885891238-23890920277-50539946705-f3026a4d17';
 if(process.env.SLACK_TOKEN) slackToken = process.env.SLACK_TOKEN;
 var token =  slackToken;
-var controller = Botkit.slackbot({ debug: true });
+var controller = Botkit.slackbot({ debug: false });
+//process.env['STORMPATH_CLIENT_APIKEY_ID'],
+//process.env['STORMPATH_CLIENT_APIKEY_SECRET']
+
+var apiKey = {};
+apiKey.id = 'NF0P0OR4JZ0BYI1MMHFCH9Z4X'
+apiKey.secret = 'jjpXpjDjBF8o21VzltHygmYhAkbEozbk7NPsyAPogfQ';
+
+var client = new stormpath.Client({ apiKey: apiKey });
+var appId = '2dOFY5UnOtoCGznZKlA5ax';
+
+var application = null;
+client.getApplication('https://api.stormpath.com/v1/applications/' + appId, function(err, resource) {
+	if(err) console.log('Could not retrieve stormpath application', appId);
+	application = resource;
+	console.log('Got application', application);
+});
+
 
 controller.spawn({ token: token }).startRTM(function (err, bot, payload) {
   if (err) throw new Error('Error connecting to Slack: ', err);
@@ -17,15 +34,20 @@ controller.hears(['hi'], ['direct_message', 'direct_mention'], function (bot, me
 });
 
 function startRegistrationConversation(bot, message) {
+	var account = {
+		email: '',
+		password: ''
+	};
 	bot.startConversation(message, function(err, convo) {
     convo.say('Hello! Human!');
 		convo.ask('Would you like to register? Let\'s start with your email address, please enter.', function(response,convo) {
       convo.say('Thanks you entered:' + response.text);
+			account.email = response.text;
       convo.next();
 			convo.ask('Did you enter the correct email address?', function(response, convo) {
 				if('yes' == response.text) {
-					convo.say('Ok then - you are now registered!');
-					convo.next();
+					account.password = makePassword(13, 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890');
+					createAccount(account, convo);
 				} else {
 					convo.say('Ok let\'s go through it again..	');
 					convo.next();
@@ -33,6 +55,30 @@ function startRegistrationConversation(bot, message) {
 			});
 		});
   });
-
-
 }
+/*	var account = {
+	  givenName: 'Jean-Luc',
+	  surname: 'Picard',
+	  username: 'jlpicard',
+	  email: 'jlpicard@starfleet.com',
+	  password: 'Changeme1!'
+	};
+*/
+function createAccount(account, convo) {
+	application.createAccount(account, function(err, createdAccount) {
+		if(err) {
+			console.log(err);
+			convo.say('Something went wrong during registration..');
+			convo.next();
+		} else {
+		  console.log(createdAccount);
+			convo.say('Ok then - you are now registered!');
+			convo.next();
+		}
+	});
+}
+
+function makePassword(n, a) {
+  var index = (Math.random() * (a.length - 1)).toFixed(0);
+  return n > 0 ? a[index] + makePassword(n - 1, a) : '';
+};

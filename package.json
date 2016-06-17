@@ -26,6 +26,7 @@
     "botkit": "~0.1.1",
     "botkit-middleware-witai": "0.0.2",
     "natural": "^0.4.0",
+    "stormpath": "^0.18.2",
     "witbot": "^2.1.0"
   }
 }

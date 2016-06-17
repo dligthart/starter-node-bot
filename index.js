@@ -17,7 +17,7 @@ controller.hears(['hi'], ['direct_message', 'direct_mention'], function (bot, ev
 controller.hears(['.*'], ['direct_message', 'direct_mention'], function (bot, message) {
   var wit = witbot.process(message.text, bot, message)
 	console.log(message.text);
-  wit.hears('greeting', 0.53, function (bot, message, outcome) {
+  wit.hears('greeting', 0.3, function (bot, message, outcome) {
 		console.log(message, outcome);
     bot.startConversation(message, function (_, convo) {
       convo.say('Hello!');

@@ -12,12 +12,17 @@ var slackToken = process.env.SLACK_TOKEN;
 var token =  slackToken;
 var controller = Botkit.slackbot({ debug: false });
 
-var apiKey = {};
-apiKey.id = process.env.STORMPATH_ID;
-apiKey.secret = process.env.STORMPATH_SECRET;
+var apiKey = {
+	id: process.env.STORMPATH_ID,
+	secret: process.env.STORMPATH_SECRET
+};
+var appId = process.env.STORMPATH_APPID;
+
+if(!apiKey.id || !apiKey.secret) {
+	console.warn('Stormpath API key and secret are required');
+}
 
 var client = new stormpath.Client({ apiKey: apiKey });
-var appId = process.env.STORMPATH_APPID;
 
 var application = null;
 client.getApplication('https://api.stormpath.com/v1/applications/' + appId, function(err, resource) {

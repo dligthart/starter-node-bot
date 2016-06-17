@@ -6,13 +6,13 @@ config:
   - name: STORMPATH_ID
     friendly_name: Some Unnecessary Option
     info: This is an unnecessary option
-    default: NF0P0OR4JZ0BYI1MMHFCH9Z4X
+    default: xxxxx
     global: true
   - name: STORMPATH_SECRET
     friendly_name: Shhhh
     info: This is an secret option
     type: secret
-    default: jjpXpjDjBF8o21VzltHygmYhAkbEozbk7NPsyAPogfQ
+    default: xxxxx
     global: true
   - name: STORMPATH_APPID
     friendly_name: Some Unnecessary Option

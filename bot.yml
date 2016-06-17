@@ -1,17 +1,28 @@
-name: TEDxBOT
-description: TEDxBOT
-avatar: resources/avatar.png
+name: MrRobot
+description: A simple Go bot sample for Beep Boop
+avatar: images/avatar.jpg
+background: images/background.png
 config:
   - name: STORMPATH_ID
-    friendly_name: Stormpath id
+    friendly_name: Some Unnecessary Option
     info: This is an unnecessary option
-    default:NF0P0OR4JZ0BYI1MMHFCH9Z4X
+    default: the default value
+    global: true
   - name: STORMPATH_SECRET
-    friendly_name: Stormpath secret
+    friendly_name: Shhhh
     info: This is an secret option
     type: secret
-    default:jjpXpjDjBF8o21VzltHygmYhAkbEozbk7NPsyAPogfQ
+    default: not secret though
+    global: true
   - name: STORMPATH_APPID
-    friendly_name: Stormpath app id
-    info: The stormpath app id
-    default:2dOFY5UnOtoCGznZKlA5ax
+    friendly_name: Some Unnecessary Option
+    info: This is an unnecessary option
+    default: the default value
+    global: true
+screenshots:
+  - screenshot: images/screenshot1.png
+  - screenshot: images/screenshot2.jpg
+slackscopes:
+  - bot
+  - commands
+  - incoming-webhook

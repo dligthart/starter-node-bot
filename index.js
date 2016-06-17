@@ -35,21 +35,28 @@ controller.hears(['hi'], ['direct_message', 'direct_mention'], function (bot, me
 
 function startRegistrationConversation(bot, message) {
 	var account = {
-		givenName: '',
-		username: '',
-		email: '',
-		password: ''
+		  givenName: '',
+		  username: '',
+		  email: '',
+		  password: ''
 	};
+	function configAccount() {
+			return account;
+	}
+
 	bot.startConversation(message, function(err, convo) {
     convo.say('Hello! Human!');
-		convo.ask('Would you like to register? ', function(response,convo) {
+		convo.ask('Would you like to register? ', function(response, convo) {
 			if('yes' == response.text) {
-				inputName(response, convo, account);
-				inputEmail(response, convo, account);
+				inputName(response, convo, configAccount);
+				inputEmail(response, convo, configAccount);
 			}
 		});
   });
 }
+
+
+
 /*	var account = {
 	  givenName: 'Jean-Luc',
 	  surname: 'Picard',
@@ -74,21 +81,21 @@ function createAccount(account, convo) {
 
 function inputName(response, convo, account) {
 	convo.ask('Pleased to get acquainted, meatbag - now what is your designation?', function(response, convo) {
-		account.givenName = response.text;
-		convo.say('I am here to serve you, Master ' + account.givenName +' !');
+		account().givenName = response.text;
+		convo.say('I am here to serve you, Master ' + account().givenName +' !');
 		convo.next();
 	});
 }
 
 function inputEmail(response, convo, account) {
 	convo.ask('Now please enter your email address so I can send you lots of spam - wink wink ;)', function(response, convo) {
-		account.email = extractEmail(response.text);
-		convo.say('Thanks you entered:' + account.email);
+		account().email = extractEmail(response.text);
+		convo.say('Thanks you entered:' + account().email);
 		convo.next();
-		convo.ask(account.givenName + ', did you enter the correct email address?', function(response, convo) {
+		convo.ask(account().givenName + ', did you enter the correct email address?', function(response, convo) {
 			if('yes' == response.text) {
-				account.username = account.email;
-				account.password = makePassword(13, 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890');
+				account().username = account().email;
+				account().password = makePassword(13, 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890');
 				createAccount(account, convo);
 			} else {
 				convo.say('Ok let\'s go through it again..	');

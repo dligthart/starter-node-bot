@@ -19,18 +19,20 @@ controller.hears(['hi'], ['direct_message', 'direct_mention'], function (bot, me
 function startRegistrationConversation(bot, message) {
 	bot.startConversation(message, function(err, convo) {
     convo.say('Hello! Human!');
-		convo.ask('Would you like to register? Let\'s start with your email address, please enter.',function(response,convo) {
+		convo.ask('Would you like to register? Let\'s start with your email address, please enter.', function(response,convo) {
       convo.say('Thanks you entered:' + response.text);
       convo.next();
-    });
-		convo.ask('Did you enter the correct email address?', function(response,convo) {
-			if('yes' == response.text) {
-				convo.say('Ok then - you are now registered!');
-				convo.next();
-			} else {
-				convo.say('Ok let\'s go through it again..');
-				convo.next();
-			}
+			convo.ask('Did you enter the correct email address?', function(response, convo) {
+				if('yes' == response.text) {
+					convo.say('Ok then - you are now registered!');
+					convo.next();
+				} else {
+					convo.say('Ok let\'s go through it again..	');
+					convo.next();
+				}
+			});
 		});
   });
+
+
 }

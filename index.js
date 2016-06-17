@@ -41,7 +41,7 @@ controller.hears(['hello'],'direct_message',wit.hears,function(bot, message) {
 	  bot.reply(message, 'Hello. from wit');
 });
 
-controller.hears(['hello', 'hi', 'yo', 'whatsup'], ['direct_mention'], function (bot, message) {
+/*controller.hears(['hello', 'hi', 'yo', 'whatsup'], ['direct_mention'], function (bot, message) {
   bot.reply(message, 'Hello.');
 });
 
@@ -89,3 +89,4 @@ controller.hears(['attachment'], ['direct_message', 'direct_mention'], function 
 controller.hears('.*', ['direct_message', 'direct_mention'], function (bot, message) {
   bot.reply(message, 'Sorry <@' + message.user + '>, I don\'t understand. \n')
 });
+*/

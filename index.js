@@ -25,9 +25,11 @@ function startRegistrationConversation(bot, message) {
     });
 		convo.ask('Did you enter the correct email address?', function(response,convo) {
 			if('yes' == response.text) {
-				convo.say('Ok then - you are now registered!')
+				convo.say('Ok then - you are now registered!');
+				convo.next();
 			} else {
-				startRegistrationConversation(bot, message);
+				convo.say('Ok let\'s go through it again..');
+				convo.next();
 			}
 		});
   });

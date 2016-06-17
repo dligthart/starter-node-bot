@@ -89,7 +89,7 @@ function inputName(response, convo, account) {
 			account().surname = response.text;
 			convo.say(account().givenName +  ' ' + account().surname + ', Master, what a beautiful name, splendid! I have stored your full name in my memory banks..');
 			convo.next();
-			inputEmail(response, convo, configAccount);
+			inputEmail(response, convo, account);
 		});
 	});
 }

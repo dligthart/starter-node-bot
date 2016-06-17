@@ -1,7 +1,6 @@
 var Botkit = require('botkit');
 
 var WIT_TOKEN = (process.env.WIT_TOKEN)?process.env.WIT_TOKEN:'KJN5XTUXGTW27DC7VJ4Y64QX6N7BZXA5';
-var Wit = require('node-wit');
 
 var slackToken = 'xoxp-23885891238-23890920277-50539946705-f3026a4d17';
 if(process.env.SLACK_TOKEN) slackToken = process.env.SLACK_TOKEN;

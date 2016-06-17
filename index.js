@@ -36,6 +36,7 @@ controller.hears(['hi'], ['direct_message', 'direct_mention'], function (bot, me
 function startRegistrationConversation(bot, message) {
 	var account = {
 		  givenName: '',
+			surname: '',
 		  username: '',
 		  email: '',
 		  password: ''
@@ -85,13 +86,18 @@ function inputName(response, convo, account) {
 		account().givenName = response.text;
 		convo.say('I am here to serve you, Master ' + account().givenName +' !');
 		convo.next();
+		convo.ask('Master '+ account().givenName + ', if you don\'t mind me asking; what is your last name? ', function(response, convo) {
+			account().surname = response.text;
+			convo.say(account().givenName +  ' ' + account().surname + ', Master, what a beautiful name, splendid! I have stored your full name in my memory banks..');
+			convo.next();
+		});
 	});
 }
 
 function inputEmail(response, convo, account) {
 	convo.ask('Now please enter your email address so I can send you lots of spam - wink wink ;)', function(response, convo) {
 		account().email = extractEmail(response.text);
-		convo.say('Thanks you entered:' + account().email);
+		convo.say('Thanks you entered: ' + account().email);
 		convo.next();
 		convo.ask(account().givenName + ', did you enter the correct email address?', function(response, convo) {
 			if('yes' == response.text) {

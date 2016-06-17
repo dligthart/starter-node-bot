@@ -8,19 +8,16 @@ var io = require('socket.io')(server);
 
 var Botkit = require('botkit');
 var stormpath = require('stormpath');
-var WIT_TOKEN = (process.env.WIT_TOKEN)?process.env.WIT_TOKEN:'KJN5XTUXGTW27DC7VJ4Y64QX6N7BZXA5';
-
-var slackToken = 'xoxp-23885891238-23890920277-50539946705-f3026a4d17';
-if(process.env.SLACK_TOKEN) slackToken = process.env.SLACK_TOKEN;
+var slackToken = process.env.SLACK_TOKEN;
 var token =  slackToken;
 var controller = Botkit.slackbot({ debug: false });
 
 var apiKey = {};
-apiKey.id = 'NF0P0OR4JZ0BYI1MMHFCH9Z4X'
-apiKey.secret = 'jjpXpjDjBF8o21VzltHygmYhAkbEozbk7NPsyAPogfQ';
+apiKey.id = process.env.STORMPATH_ID;
+apiKey.secret = process.env.STORMPATH_SECRET;
 
 var client = new stormpath.Client({ apiKey: apiKey });
-var appId = '2dOFY5UnOtoCGznZKlA5ax';
+var appId = process.env.STORMPATH_APPID;
 
 var application = null;
 client.getApplication('https://api.stormpath.com/v1/applications/' + appId, function(err, resource) {

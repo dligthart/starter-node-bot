@@ -12,6 +12,8 @@ var controller = Botkit.slackbot({
   debug: false
 });
 
+controller.middleware.receive.use(wit.receive);
+
 // Assume single team mode if we have a SLACK_TOKEN
 if (token) {
   console.log('Starting in single-team mode')
@@ -31,14 +33,12 @@ if (token) {
   require('beepboop-botkit').start(controller, { debug: true });
 }
 
-controller.on('bot_channel_join', function (bot, message) {
+/*controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "I'm here!");
-});
+});*/
 
-controller.middleware.receive.use(wit.receive);
-
-controller.hears(['hello'],'direct_message',wit.hears,function(bot, message) {
-	  bot.reply(message, 'Hello. from wit');
+controller.hears(['hello'], 'direct_message', wit.hears, function(bot, message) {
+	bot.reply(message, 'Hello. from wit');
 });
 
 /*controller.hears(['hello', 'hi', 'yo', 'whatsup'], ['direct_mention'], function (bot, message) {

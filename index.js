@@ -97,7 +97,7 @@ function inputEmail(response, convo, account) {
 			if('yes' == response.text) {
 				account().username = account().email;
 				account().password = makePassword(13, 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890');
-				createAccount(account, convo);
+				createAccount(account(), convo);
 			} else {
 				convo.say('Ok let\'s go through it again..	');
 				convo.next();

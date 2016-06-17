@@ -2,6 +2,10 @@
 // version 0.1
 // by dligthart <dligthart@gmail.com>
 
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
 var Botkit = require('botkit');
 var stormpath = require('stormpath');
 var WIT_TOKEN = (process.env.WIT_TOKEN)?process.env.WIT_TOKEN:'KJN5XTUXGTW27DC7VJ4Y64QX6N7BZXA5';
@@ -130,3 +134,12 @@ function extractEmail(text){
 	}
 	return null;
 }
+
+server.listen(80);
+
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});

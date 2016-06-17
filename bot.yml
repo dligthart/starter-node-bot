@@ -5,13 +5,13 @@ config:
   - name: STORMPATH_ID
     friendly_name: Stormpath id
     info: This is an unnecessary option
-    default:
+    default:NF0P0OR4JZ0BYI1MMHFCH9Z4X
   - name: STORMPATH_SECRET
     friendly_name: Stormpath secret
     info: This is an secret option
     type: secret
-    default:
+    default:jjpXpjDjBF8o21VzltHygmYhAkbEozbk7NPsyAPogfQ
   - name: STORMPATH_APPID
     friendly_name: Stormpath app id
     info: The stormpath app id
-    default:
+    default:2dOFY5UnOtoCGznZKlA5ax

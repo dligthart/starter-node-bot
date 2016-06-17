@@ -43,7 +43,7 @@ function startRegistrationConversation(bot, message) {
 	bot.startConversation(message, function(err, convo) {
     convo.say('Hello! Human!');
 		convo.ask('Would you like to register? ', function(response,convo) {
-			if('yes' == response) {
+			if('yes' == response.text) {
 				inputName(response, convo, account);
 				inputEmail(response, convo, account);
 			}

@@ -13,10 +13,22 @@ controller.spawn({ token: token }).startRTM(function (err, bot, payload) {
 });
 
 controller.hears(['hi'], ['direct_message', 'direct_mention'], function (bot, message) {
-	//bot.reply(evt, 'hello from bot');
-
-  bot.startConversation(message, function(err, convo) {
-    convo.say('Hello!');
-    convo.say('Have a nice day!');
-  });
+  startRegistrationConversation(bot, message);
 });
+
+function startRegistrationConversation(bot, message) {
+	bot.startConversation(message, function(err, convo) {
+    convo.say('Hello! Human!');
+		convo.ask('Would you like to register? Let\'s start with your email address, please enter.',function(response,convo) {
+      convo.say('Thanks you entered:' + response.text);
+      convo.next();
+    });
+		convo.ask('Did you enter the correct email address?', function(response,convo) {
+			if('yes' == response.text) {
+				convo.say('Ok then - you are now registered!')
+			} else {
+				startRegistrationConversation(bot, message);
+			}
+		});
+  });
+}

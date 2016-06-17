@@ -12,10 +12,10 @@ controller.spawn({ token: token }).startRTM(function (err, bot, payload) {
   console.log('Connected to Slack');
 });
 
-controller.hears(['hi'], ['direct_message', 'direct_mention'], function (bot, evt) {
+controller.hears(['hi'], ['direct_message', 'direct_mention'], function (bot, message) {
 	//bot.reply(evt, 'hello from bot');
 
-  bot.startConversation(message,function(err,convo) {
+  bot.startConversation(message, function(err, convo) {
     convo.say('Hello!');
     convo.say('Have a nice day!');
   });
